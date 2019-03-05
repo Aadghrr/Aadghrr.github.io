@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Google Cloud Associate Engineer"
-date:   2019-03-05 00:00
+date:   2019-03-05 00:29
 categories: GCP
 ---
 

@@ -10,16 +10,16 @@ My list of studying for RHCSA:
 
 RHCSA 
 
-##Resetting the Root Password
+## Resetting the Root Password
 ```shell
 # mount -o remount,rw /sysroot
 # chroot /sysroot
 ```
 
 
-##I/O Redirection
+## I/O Redirection
 
-##grep and Regex
+## grep and Regex
 
 ##Switch User in Multiple Targets
 

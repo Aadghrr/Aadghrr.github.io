@@ -30,9 +30,44 @@ Commands now run with regard to ``/sysroot`` and the root password can be reset 
 Fiel descriptor 1 is stdout, file descriptor 2 is stderr. The & is used to show that it's a file descriptor, not a file named 1 for instance. For instance you can use ``2>&1`` to redirect stderr to stdout. 
 
 ## grep and Regex
+###grep
+```shell
+# grep <flags> <search term> <file(s)>
+```
+Useful flags: 
+*``-v`` searches for files that don't include that term
+*``-c`` displays a count of matching lines
+*``-E`` treats the search term as a regex 
+*``-F`` treats the search term as a string instead of a regex
+*``-i`` ignores the case
+*``-R`` Searches directories recursively, links are not followed
+*``-r`` Searches directories recursively, links are followed
+
+Examples:
+```shell
+#To search for files starting with a-z or A-Z
+# grep  "^[a-zA-Z]"  filename
+#Search for the '$' character in a file
+# grep \\$ filename 
+```
+###Regex
+*``^The`` string beginning with 'The'
+*``end$`` string ending with 'end'
+*``abc+`` matches a string that has ab followed by one or more c
+*``abc*`` matches a string that has ab followed by zero or more c
+*``abc?`` matches a string that has ab followed by zero or one c
+*``abc{2,5}`` matches a string that has ab followed by 2 up to 5 c
+*``a(bc){2,5}`` matches a string that has a followed by 2 up to 5 copies of the sequence bc
+*``a(b|c)`` matches a string that has a followed by b or c 
+*``a[bc]`` matches a string that has a followed by b or c
+*``\w`` matches a word
+*``\d`` matches a single character
+*``\s`` matches any whitespace character
+
 
 ## Switch User in Multiple Targets
-
+Using ``su`` without '-' switches to the new user while remaining in the original workspace with the original paths
+ 
 ## tar, star, gzip, bzip2
 
 ## Hard and Soft Links

@@ -11,208 +11,218 @@ My list of studying for RHCSA:
 RHCSA 
 
 ## Resetting the Root Password
+Reboot to grub, and press 'e' over the first boot entry to edit it. Add ``rd.break`` to the end of the line containing ``linux16`` this will stop the bootloader before ``initramfs`` passes control to the linux kernel, allowing you to work directly with the root filesystem. Initially from here the root filesystem is mounted in read only mode and ``/sysroot`` must be remounted in read/write mode to be able to make changes. So run thefollowing commands to remount the filesystem and change into a chroot jail. 
+
 ```shell
 # mount -o remount,rw /sysroot
 # chroot /sysroot
 ```
 
+Commands now run with regard to ``/sysroot`` and the root password can be reset by running ``passwd``. Without ``SELinux`` enabled this is all. Use ``getenforce`` to check whether SELinux is enabled or not, if it is we need to run ``# touch /.autorelabel``. This will fix the context of the ``/etc/shadow`` file. Adding the autorelabel file forces auto relabel on the next boot. ``exit`` to exit the chroot jail environment now. (Restart from here, exit again returns to initramfs root shell?)
 
 ## I/O Redirection
+|Def        |Overwrite   |Append  |
+|-----------|:----------:|-------:|
+|Std Output |    >       |   >>   |
+|Std Input  |    <       |   <<   | 
+|Std Error  |    2>      |   2>>  |
+
+Fiel descriptor 1 is stdout, file descriptor 2 is stderr. The & is used to show that it's a file descriptor, not a file named 1 for instance. For instance you can use ``2>&1`` to redirect stderr to stdout. 
 
 ## grep and Regex
 
-##Switch User in Multiple Targets
+## Switch User in Multiple Targets
 
-##tar, star, gzip, bzip2
+## tar, star, gzip, bzip2
 
-##Hard and Soft Links
+## Hard and Soft Links
 
-##List, Set and Change Permissions
+## List, Set and Change Permissions
 
-##Info, man, /usr/share/doc
+## Info, man, /usr/share/doc
 
 
-##Manually booting to different targets
+## Manually booting to different targets
 
-##renice
+## renice
 
-##System log files and journals
+## System log files and journals
 
-##Start, Stop, Status of Network Services
+## Start, Stop, Status of Network Services
 
-##Secure File Transfer 
+## Secure File Transfer 
 
 
 
-##List, Create, Delete Partitions on MBR & GPT Disks
+## List, Create, Delete Partitions on MBR & GPT Disks
 
-##Create and Rename Physical Volumes
+## Create and Rename Physical Volumes
 
-##Volume Groups
+## Volume Groups
 
-##Create and Delete Logical Volumes
+## Create and Delete Logical Volumes
 
-##Configure to mount filesystem at boot by UUID or label
+## Configure to mount filesystem at boot by UUID or label
 
-##Add new partitions and logical volumes non-destructively
+## Add new partitions and logical volumes non-destructively
 
-##Add swap to a system non-destructively
+## Add swap to a system non-destructively
 
-##Extending logical volumes
+## Extending logical volumes
 
 
 
-##Create, Mount, Unmount, and use VFAT, EXT4, XFS Filesystems
+## Create, Mount, Unmount, and use VFAT, EXT4, XFS Filesystems
 
-##Mount and Unmount CIFS and NFS
+## Mount and Unmount CIFS and NFS
 
-##Create and Condigure Set-GID directories for Collaboration
+## Create and Condigure Set-GID directories for Collaboration
 
-##Create and Manage ACLs
+## Create and Manage ACLs
 
-##Diagnose and Correct File Permission Problems
+## Diagnose and Correct File Permission Problems
 
-##Configure Networking and Hostname Resolution Statically and Dynamically
+## Configure Networking and Hostname Resolution Statically and Dynamically
 
-##cron and at schedule commands
+## cron and at schedule commands
 
-##Start and Stop Services
+## Start and Stop Services
 
-##Configure Services to Start at Boot
+## Configure Services to Start at Boot
 
-##Configure to Boot to a Specific Target
+## Configure to Boot to a Specific Target
 
-##Auto install redhat with kickstart
+## Auto install redhat with kickstart
 
-##Configure a physical machine to host virtual guests
+## Configure a physical machine to host virtual guests
 
-##Configure a system to launch virtual machines at boot
+## Configure a system to launch virtual machines at boot
 
-##Configure a system to use time services
+## Configure a system to use time services
 
-##Configure to install and update software from Redhat Network remote repos andlocal filesystem
+## Configure to install and update software from Redhat Network remote repos andlocal filesystem
 
-##Update the kernel approproately
+## Update the kernel approproately
 
-##Modify the bootloader
+## Modify the bootloader
 
 
 
 
 
-##Create, delete, modify, local user accounts
+## Create, delete, modify, local user accounts
 
-##Change password and adjust password age rules for local users
+## Change password and adjust password age rules for local users
 
-##Create, delete and modify local groups and group memberships
+## Create, delete and modify local groups and group memberships
 
-##Configure a system to use an existing authentication service for user and group information, eg LDAP
+## Configure a system to use an existing authentication service for user and group information, eg LDAP
 
-##Set up an NFS (with Autofs) with LDAP permissions
+## Set up an NFS (with Autofs) with LDAP permissions
 
 
 
-##Configure Firewall settings with firewall-config, firewall-cmd, iptables
+## Configure Firewall settings with firewall-config, firewall-cmd, iptables
 
-##Configure key based authentication for SSH
+## Configure key based authentication for SSH
 
-##Set Enforcing and Permissice modes for SELinux
+## Set Enforcing and Permissice modes for SELinux
 
-##List and Identify SELinux file and process context
+## List and Identify SELinux file and process context
 
-##Restore Default file Contexts
+## Restore Default file Contexts
 
-##Diagnose and Address Routine SELinux Policy Violations
+## Diagnose and Address Routine SELinux Policy Violations
 
 
-#Questions
+# Questions
 
-##Change the Root Password in your virtual machine using single user mode
+## Change the Root Password in your virtual machine using single user mode
+ 
+## Create a network connection
 
-##Create a network connection
+## Configure Yum Client
 
-##Configure Yum Client
+## Check SELinux is in enforcing mode
 
-##Check SELinux is in enforcing mode
+## Install the appropriate kernel
 
-##Install the appropriate kernel
+## Create an LVM with name 'fedora' using 100PEs from volume group 'redhat'. Consider PE size as 8MB and mount it on '/mnt/data' with fs xfs
 
-##Create an LVM with name 'fedora' using 100PEs from volume group 'redhat'. Consider PE size as 8MB and mount it on '/mnt/data' with fs xfs
+## Extend the LVM Filesystem to 250Mb from location '/dev/redhat/fedora' without losing data
 
-##Extend the LVM Filesystem to 250Mb from location '/dev/redhat/fedora' without losing data
+## Add 512Mb Swap don’t remove or extend the existing swap. Your new Swap should be mounted at booting time.
 
-##Add 512Mb Swap don’t remove or extend the existing swap. Your new Swap should be mounted at booting time.
+## Create a group named 'admin'. Users 'harry' and 'natasha' belong to 'admin' as a secondary group with password 'wakennym'
 
-##Create a group named 'admin'. Users 'harry' and 'natasha' belong to 'admin' as a secondary group with password 'wakennym'
+## Create directory '/home/admin' with the following properties:
 
-##Create directory '/home/admin' with the following properties:
+### Owned by 'sysadmin' group
 
-###Owned by 'sysadmin' group
+### The directory should have read, write & access permission for all members of 'sysadmin' group but not to any other users. ( It is understood understand that the 'root' has full access to all files present in the system)
 
-###The directory should have read, write & access permission for all members of 'sysadmin' group but not to any other users. ( It is understood understand that the 'root' has full access to all files present in the system)
+### Files created under '/home/admin' should get the same group ownership is set to the 'sysadmin' group
 
-###Files created under '/home/admin' should get the same group ownership is set to the 'sysadmin' group
+## The user sarah configures a cron job to run daily at 1423 the program /bin/echo 'welcome to linux'
 
-##The user sarah configures a cron job to run daily at 1423 the program /bin/echo 'welcome to linux'
+## Copy the file /etc/fstab to /var/tmp and configure an ACL as:
 
-##Copy the file /etc/fstab to /var/tmp and configure an ACL as:
+### The file /var/tmp/fstab is owned by 'root' user
 
-###The file /var/tmp/fstab is owned by 'root' user
+### The file /var/tmp/fstab belongs to 'root' group
 
-###The file /var/tmp/fstab belongs to 'root' group
+### The file /var/tmp/fstab is not executable by anyone
 
-###The file /var/tmp/fstab is not executable by anyone
+### The user 'sara' can read and write to the file
 
-###The user 'sara' can read and write to the file
+### The user 'natasha' can neither read nor write to the file
 
-###The user 'natasha' can neither read nor write to the file
+### Other future and current users can read the file
 
-###Other future and current users can read the file
+## Create the user 'jein' with uid 4332 with password 'wakennym'
 
-##Create the user 'jein' with uid 4332 with password 'wakennym'
+## locate the files of owner 'harry' and copy to the location /root/result directory. Also preserve the permission, ownership and timestamp.
 
-##locate the files of owner 'harry' and copy to the location /root/result directory. Also preserve the permission, ownership and timestamp.
+## Find the string 'squid' from '/usr/share/dict/words' file and copy the lines in /root/lists.txt.
 
-##Find the string 'squid' from '/usr/share/dict/words' file and copy the lines in /root/lists.txt.
+## Note the following. BASE DN: dc=example,dc=com LDAP path ldap://classroom.example.com/. Download the certificate from 'http://classroom.example.com/pub/example-ca.crt' Ldapuserx should login into your system
 
-##Note the following. BASE DN: dc=example,dc=com LDAP path ldap://classroom.example.com/. Download the certificate from 'http://classroom.example.com/pub/example-ca.crt' Ldapuserx should login into your system
+## Set up a NFS accessible by LDAP users with the following configuration
 
-##Set up a NFS accessible by LDAP users with the following configuration
+### classroom.example.com 'Nfs exports' and Nfs Version 3 /home/guests/ldapuserX
+### Ldapuser’s home directory is classroom.example.com:/home/guests/ldapuserX.
+### Ldapuser’s home directory should be automounted locally beneath /home/guests/ldapuserX.
+### If login  using ldapuserX then only home directory should accesible.
 
-###classroom.example.com 'Nfs exports' and Nfs Version 3 /home/guests/ldapuserX
-###Ldapuser’s home directory is classroom.example.com:/home/guests/ldapuserX.
-###Ldapuser’s home directory should be automounted locally beneath /home/guests/ldapuserX.
-###If login  using ldapuserX then only home directory should accesible.
+## Synchronize time of your system with the server classroom.example.com
 
-##Synchronize time of your system with the server classroom.example.com
+## Compression & archive for /etc folder in gunzip/bunzip2 format
 
-##Compression & archive for /etc folder in gunzip/bunzip2 format
 
 
+# Extras
 
-#Extra
+## Configure Yum Repo
 
-##Configure Yum Repo
+## Check SELinux is persistent
 
-##Check SELinux is persistent
+## Setup NTP Server
 
-##Setup NTP Server
+## Find command
 
-##Find command
+## Awk command
 
-##Awk command
+## Systemctl
 
-##Systemctl
+## Configure and harward or software RAID
 
-##Configure and harward or software RAID
+## Is it okay to restart the host after every question to confirm persistence
 
-##Is it okay to restart the host after every question to confirm persistence
+## Downloading and installing nltui and authconfig-gtk - can you do this in the exam? Do you need to change the target to graphical interface?
 
-##Downloading and installing nltui and authconfig-gtk - can you do this in the exam? Do you need to change the target to graphical interface?
 
 
-
-##Find files 
+## Find files 
 You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run `jekyll serve --watch`, which launches a web server and auto-regenerates your site when a file is updated.
 
 To add new posts, simply add a file in the `_posts` directory that follows the convention `YYYY-MM-DD-name-of-post.ext` and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.

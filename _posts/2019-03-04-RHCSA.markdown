@@ -8,9 +8,14 @@ categories: RHCSA
 My list of studying for RHCSA:
 
 
-#RHCSA 
+RHCSA 
 
 ##Resetting the Root Password
+```shell
+# mount -o remount,rw /sysroot
+# chroot /sysroot
+```
+
 
 ##I/O Redirection
 
@@ -204,6 +209,8 @@ My list of studying for RHCSA:
 ##Is it okay to restart the host after every question to confirm persistence
 
 ##Downloading and installing nltui and authconfig-gtk - can you do this in the exam? Do you need to change the target to graphical interface?
+
+
 
 ##Find files 
 You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run `jekyll serve --watch`, which launches a web server and auto-regenerates your site when a file is updated.

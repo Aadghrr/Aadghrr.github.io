@@ -72,10 +72,20 @@ Using ``su`` without '-' switches to the new user while remaining in the origina
 
 ###tar - tape archive
 Archive and compress
-
+* ``-z`` run the files through gzip to compress
+* ``-f`` use archive file
+* ``v``
 Extract
 
-###star 
+Examples:
+```shell
+tar -xvf archive.tar --wildcards '*.doc'
+```
+
+
+
+###star - unique standard tape archive 
+Star is a faster version of tar.
 
 ###gzip
 

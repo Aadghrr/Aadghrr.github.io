@@ -92,13 +92,26 @@ Star is a faster version of tar.
 ###bzip2
 
 ## Hard and Soft Links
+Hard links reference the inode so the link updates as the file is moved, but as a result it can't link to directories.
+Soft links create a separate inode so they can link to directories and across filesystems. 
+
+Examples
+```shell
+#Hard link
+# ln <source> <link name>
+#Soft link
+# ln -s <source> <link name>
+```
 
 ## List, Set and Change Permissions
+List file permissions using ``ls -l``
 
 ## Info, man, /usr/share/doc
 
 
 ## Manually booting to different targets
+
+
 
 ## renice
 
@@ -192,14 +205,70 @@ Star is a faster version of tar.
 
 
 # Questions
+Given
+Ethernet/Device = eth0
+Hostname = serverX.example.com
+IP address = 172.10.1.10
+Netmask = 255.255.255.0
+Default Gateway = 172.10.1.254
+DNS search path = example.com
+primary DNS server = 172.10.1.250
 
 ## Change the Root Password in your virtual machine using single user mode
+```shell
+```
+
  
 ## Create a network connection
+```shell
+# nmcli con add con-name eth0 ifname eth0 type ethernet
+# nmcli con mod eth0 ipv4.address '172.10.1.10/24172.10.1.254' ipv4.dns172.10.1.250 ipv4.dns-search example.com ipv4.method manual
+# nmcli con mod eth0 connection.autoconnect yes
+# nmcli con up eth0
+# nmcli con show
+# nmcli device status
+# systemctl enable network
+# systemctl restart network
+# hostnamectl set-hostname serverX.example.com
+# systemctl set-default graphical.target
+# systemctl isolate graphical.target
+# systemctl restart network
+# init 6
+```
 
 ## Configure Yum Client
+Given: yum baseurl path = http://content.example.com/rhel7.0/x86_64/dvd
+
+```shell
+# cd /etc/yum.repos.d
+# rm -rf *
+# vim devopsage.repo
+
+[devopsage]
+name=yum-repo
+baseurl=http://content.example.com/rhel7.0/x86_64/dvd
+gpgcheck=0
+enabled=1
+:wq
+
+# yum clean all
+# yum list all
+# yum repolist
+```
 
 ## Check SELinux is in enforcing mode
+Check with
+```shell
+# getenforce
+```
+Output should be ``enforcing`` if it is not update the following:
+
+```shell
+# vim /etc/selinux/config
+SELINUX=enforcing
+:wq!
+# reboot
+```
 
 ## Install the appropriate kernel
 
